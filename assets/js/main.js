@@ -1,3 +1,33 @@
+/* Mobile Menu */
+const navToggle = document.getElementById("nav-toggle"),
+  navMenu = document.getElementById("nav-menu");
+
+if (navToggle && navMenu) {
+  const setMenu = (open) => {
+    navMenu.classList.toggle("show-menu", open);
+    navToggle.setAttribute("aria-expanded", open);
+    navToggle.innerHTML = open
+      ? '<i class="ri-close-line"></i>'
+      : '<i class="ri-menu-line"></i>';
+  };
+
+  navToggle.addEventListener("click", () => {
+    setMenu(!navMenu.classList.contains("show-menu"));
+  });
+
+  // Close the menu when a link is clicked
+  navMenu.querySelectorAll(".nav__link").forEach((link) => {
+    link.addEventListener("click", () => setMenu(false));
+  });
+
+  // Close the menu when clicking outside it
+  document.addEventListener("click", (e) => {
+    if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+      setMenu(false);
+    }
+  });
+}
+
 /* Home Split Text */
 const { animate, text, stagger } = anime;
 
@@ -187,10 +217,10 @@ a.forEach((item) => {
 /* Scroll Reveal Animation */
 const sr = ScrollReveal({
   origin: "top",
-  distance: "60px",
-  duration: 2000,
-  delay: 300,
-  reset: true, // Animation repeat
+  distance: "30px",
+  duration: 1200,
+  delay: 200,
+  reset: false,
 });
 
 //home, project and work section animations
