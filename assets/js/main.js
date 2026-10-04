@@ -3,12 +3,13 @@ const navToggle = document.getElementById("nav-toggle"),
   navMenu = document.getElementById("nav-menu");
 
 if (navToggle && navMenu) {
+  const navIcon = navToggle.querySelector("i");
+
   const setMenu = (open) => {
     navMenu.classList.toggle("show-menu", open);
     navToggle.setAttribute("aria-expanded", open);
-    navToggle.innerHTML = open
-      ? '<i class="ri-close-line"></i>'
-      : '<i class="ri-menu-line"></i>';
+    // Change the icon class only (do not replace the element)
+    navIcon.className = open ? "ri-close-line" : "ri-menu-line";
   };
 
   navToggle.addEventListener("click", () => {
@@ -22,7 +23,7 @@ if (navToggle && navMenu) {
 
   // Close the menu when clicking outside it
   document.addEventListener("click", (e) => {
-    if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+    if (!e.target.closest("#nav-menu") && !e.target.closest("#nav-toggle")) {
       setMenu(false);
     }
   });
